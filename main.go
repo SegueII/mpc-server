@@ -54,8 +54,11 @@ func subscribeServiceRequest(client sdk.IRISHUBClient, serviceName string, provi
 		serviceName,
 		func(reqCtxID, reqID, input string) (output string, result string) {
 			abyClient := aby.NewABY()
-			_ = abyClient
-			_, _ = abyClient.Cmd.Output()
+			out, err := abyClient.Server("env")
+			if err != nil {
+				panic(err)
+			}
+			println(string(out))
 
 			ch <- reqID
 			output = `{"header":{},"body":{"test":"xxx"}}`
