@@ -1,1 +1,1 @@
-# mpc-server
+# MPC-Server
