@@ -4,6 +4,8 @@ import (
 	sdk "github.com/irisnet/irishub-sdk-go"
 	"github.com/irisnet/irishub-sdk-go/types"
 	"github.com/irisnet/irishub-sdk-go/types/store"
+
+	"github.com/segueII/mpc-server/aby"
 )
 
 var (
@@ -51,6 +53,10 @@ func subscribeServiceRequest(client sdk.IRISHUBClient, serviceName string, provi
 	sub, _ := client.Service.SubscribeServiceRequest(
 		serviceName,
 		func(reqCtxID, reqID, input string) (output string, result string) {
+			abyClient := aby.NewABY()
+			_ = abyClient
+			_, _ = abyClient.Cmd.Output()
+
 			ch <- reqID
 			output = `{"header":{},"body":{"test":"xxx"}}`
 			result = `{"code":200,"message":""}`
